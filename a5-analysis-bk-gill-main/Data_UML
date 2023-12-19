@@ -1,0 +1,56 @@
+@startuml
+class DataAnalysisCLI [[java:DataAnalysisCLI]] {
+	+DataAnalysisCLI()
+	+run(): void
+	+{static} main(args: String[]): void
+}
+class DataFrame [[java:DataFrame]] {
+}
+DataAnalysisCLI -->  DataFrame : uses
+class InteractiveCLI [[java:InteractiveCLI]] {
+}
+DataAnalysisCLI -->  InteractiveCLI : uses
+class DataFrame [[java:DataFrame]] {
+	-headerNames: String[]
+	-data: double[][]
+	-numOfRows: int
+	-numOfCols: int
+	+DataFrame(fileName: String)
+	+getHeaderNames(): String[]
+	+getNumOfRows(): int
+	+getNumOfCols(): int
+	+toString(): String
+	+getColumnByIndex(index: int): DataSeries
+}
+class DataSeries [[java:DataSeries]] {
+	-label: String
+	-data: double[]
+	-count: int
+	+DataSeries(label: String)
+	+add(value: double): void
+	+size(): int
+	+toString(): String
+	+getMin(): double
+	+getMax(): double
+	+getSum(): double
+	+getMean(): double
+}
+interface IBasicStats [[java:IBasicStats]] {
+}
+IBasicStats <|.. DataSeries : implements
+interface IBasicStats [[java:IBasicStats]] {
+	getMin(): double
+	getMax(): double
+	getSum(): double
+	getMean(): double
+}
+class InteractiveCLI [[java:InteractiveCLI]] {
+	-reader: Scanner
+	+InteractiveCLI()
+	+getKeyboardInteger(): int
+	+getKeyboardDouble(): double
+	+getKeyboardString(): String
+	+prompt(s: String): void
+	+display(s: String): void
+}
+@enduml

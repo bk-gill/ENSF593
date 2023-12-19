@@ -1,0 +1,29 @@
+@startuml
+
+interface ActionListener {
+    +actionPerformed(e: ActionEvent): void
+}
+
+class TextAnalyzer {
+    -numOfSentences: int
+    -numOfWords: int
+    +TextAnalyzer(text: String)
+    +getNumOfSentences(): int
+    +getNumOfWords(): int
+    +toString(): String
+}
+
+class TextAnalysisGUI {
+    -input: JTextArea
+    -output: JTextArea
+    -analyze: JButton
+    -clear: JButton
+    +TextAnalysisGUI()
+    +main(args: String[]): void
+    +actionPerformed(e: ActionEvent): void
+}
+
+TextAnalysisGUI .up.|> ActionListener: implements
+TextAnalysisGUI --> TextAnalyzer: uses
+
+@enduml
